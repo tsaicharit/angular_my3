@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+    <style>
+    button{
+      width:50%;
+    }
+    .fullength{
+      width:100%;
+    }
+    </style>
+  </head>
+  <body ng-app="angularMy3App">
+    <!--[if lte IE 8]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+
+    <div id="container" class="col-md-10 col-md-offset-1" ng-controller="myCtrl">
+      <div id="wrapper">
+        <div class="page-header text-center"><h2 class="">TODO APPLICATION</h2></div>
+        <div class="col-md-4 col-md-offset-4"><input id="addnew" class="form-control" ng-model="addnewtasktext" type="text" placeholder="Write to Add the Task..." ng-keyup="addnewtask($event)"/></div>
+        <br/>
+        <br/>
+        <div id="taskstatus" class="row">
+          <p class="text-center"><b>TASK STATUS</b></p>
+          <div class="row">
+            <div class="col-md-11 col-md-offset-1">
+              <div class="col-md-3">Created:{{tcreated}}</div>
+              <div class="col-md-3">Pending:{{tcreated-(tcompleted+tdeleted)}}</div>
+              <div class="col-md-3">Completed:{{tcompleted}}</div>
+              <div class="col-md-3">Deleted:{{tdeleted}}</div>
+            </div>
+          </div>
+        </div>
+        <hr/>
+        <p><strong>Task's to be complete</strong></p>
+        <table id="mainlist" class="table table-striped table-hover table-bordered">
+          <tr>
+            <td>S.No</td>
+            <td>ID No.</td>
+            <td class="col-md-4">Task Description<br/><span style="font-size:10pt; color:green;">Click on task to edit</span></td>
+            <td>Created On</td>
+            <td>Modified On</td>
+            <td class="col-md-2">Action</td>
+          </tr>
+          <tr id="listmitems" ng-repeat="task in mtask" ng-init="display=true">
+            <td>{{$index+1}}</td>
+            <td>{{task.idno}}</td>
+            <td><span id="descspan" ng-show="display" ng-click="display = !display" >{{task.desc}}</span>
+              <textarea id="indesc" type="text" ng-model="task.desc" ng-hide="display" ng-blur="display=savedata($index)" ng-keyup="display = enterkeyedit($event,$index)">{{task.desc}}</textarea>
+            </td>
+            <td>{{task.day}}</td>
+            <td>{{task.mdate}}</td>
+            <td><div class="fullength btn-group"><button id="del" type="button" class="btn btn-danger btn-sm" ng-click="btnfunc($index,'delete')">Delete</button>
+              <button id="com" type="button" class="btn btn-success btn-sm" ng-click="btnfunc($index,'complete')">Completed</button></div>
+            </td>
+          </tr>
+        </table>
+        <hr/>
+        <p><strong>Complete Task List</strong></p>
+        <table id="completelist" class="table table-striped table-hover table-bordered">
+          <tr>
+            <td>S.No</td>
+            <td>ID No.</td>
+            <td class="col-md-4">Task Description</td>
+            <td>Created On</td>
+            <td>Delete/Complete Date</td>
+            <td>Status</td>
+            
+          </tr>
+          <tr id="listcitems" ng-repeat="task in completetasklist">
+            <td>{{$index+1}}</td>
+            <td>{{task.idno}}</td>
+            <td>{{task.desc}}</td>
+            <td>{{task.day}}</td>
+            <td>{{task.compdate}}</td>
+            <td>{{task.stat}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+     <script>
+       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+       ga('create', 'UA-XXXXX-X');
+       ga('send', 'pageview');
+    </script>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/app.js"></script>
+        <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/about.js"></script>
+        <!-- endbuild -->
+</body>
+</html>
